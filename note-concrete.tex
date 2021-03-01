@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,top=2cm,bottom=3cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{titling}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{thmtools}
+\usepackage[shortlabels]{enumitem}
+\usepackage{abstract}
+\usepackage{hyperref}
+
+\title{Mathematical Analysis of Algorithms}
+\date{Spring 2021}
+
+% bold math
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+% remove abstract title
+\renewcommand{\abstractname}{}
+\renewcommand{\absnamepos}{empty}
+
+% style of links
+\hypersetup{colorlinks,linkcolor=black}
+
+% set theorem style
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\normalfont\bfseries,
+  notefont=\normalfont\bfseries,
+  bodyfont=\normalfont\upshape,
+  postheadspace=0.5em
+]{custom}
+
+% set qed symbol
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+% types of theorems
+\declaretheorem[style=custom,parent=section]{definition}
+\declaretheorem[style=custom,sibling=definition]{example}
+\declaretheorem[style=custom,sibling=definition]{theorem}
+\declaretheorem[style=custom,sibling=definition]{fact}
+\declaretheorem[style=custom,sibling=definition]{algorithm}
+
+% use bold fonts to emphasize
+\DeclareTextFontCommand{\emph}{\bfseries}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+
+\begin{document}
+
+% title
+\begin{center}
+  \LARGE \bfseries \thetitle, \thedate
+\end{center}
+
+\begin{abstract}
+  This note is taken for the course "Mathematical Analysis of Algorithms", which is instructed by Wen-Chin Chen in Spring 2021.
+\end{abstract}
+
+\tableofcontents
+
+\section{February 26, 2021}
+\subsection{Course Introduction}
+This course focuses on \emph{concrete mathematics}, which is a blend of continuous and discrete mathematics.
+
+\begin{itemize}
+  \item Scoring: Homeworks ($100\%$).
+  \item Textbook: \textsl{Concrete Mathematics: A Foundation for Computer Science}, by Ronald Graham, Donald Knuth and Oren Patashnik (1989).
+\end{itemize}
+
+\subsection{Tower of Hanoi}
+The \emph{Tower of Hanoi} consists of three pegs, and we are given $n$ disks, which are initially stacked in decreasing size on one of the three pegs.
+The goal is to move the entire tower to one of the other pegs.
+In each step, only one disk can be moved, and a larger one cannot be moved onto a smaller one.
+We need to determine the minimum number $T_n$ of moves needed to reach the goal.
+
+\begin{theorem}
+  $T_n = 2^n - 1$ for all $n \in \NN$.
+\end{theorem}
+\begin{proof}
+  Clearly $T_0 = 0$.
+  To move $n$ disks for $n \geq 1$, one ca
+  n transfer the $n - 1$ smallest disks to a single peg, then move the largest one to a different peg, and then transfer the $n - 1$ smallest ones back onto the largest one.
+  Thus $T_n \leq 2T_{n-1} + 1$ for $n \geq 1$.
+  \par Note that we have to move the largest disk at some point, and before that the $n-1$ smallest disks should be transferred to a single peg, requiring $T_{n-1}$ moves.
+  Then we move the largest disk.
+  While one may move the largest disk more than once, after moving the largest disk for the last time we must transfer the $n-1$ smallest disks back onto the largest one, requiring $T_{n-1}$ moves.
+  Thus $T_n \geq 2T_{n-1} + 1$ for $n \geq 1$.
+  \par It follows that for $n \geq 1$, we have $T_n = 2T_{n-1} + 1$, implying $T_n + 1 = 2(T_{n-1} + 1)$.
+  Thus, $T_n = 2^n(T_0 + 1) - 1 = 2^n - 1$ for all $n \in \NN$.
+\end{proof}
+
+\subsection{Josephus Problem}
+In the \emph{Josephus problem}, there are $n$ people numbered from $1$ to $n$ standing in a circle.
+Every second remaining person is eliminated until only one survives.
+We need to determine the number $J_n$ of the survivor.
+For instance, we have $J_{10} = 5$ since
+\begin{align*}
+  (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+  &\to (3, 4, 5, 6, 7, 8, 9, 10, 1) \\
+  &\to (5, 6, 7, 8, 9, 10, 1, 3) \\
+  &\to (7, 8, 9, 10, 1, 3, 5) \\
+  &\to (9, 10, 1, 3, 5, 7) \\
+  &\to (1, 3, 5, 7, 9) \\
+  &\to (5, 7, 9, 1) \\
+  &\to (9, 1, 5) \\
+  &\to (5, 9) \\
+  &\to (5).
+\end{align*}
+
+\begin{theorem}
+  Let $m$ and $\ell$ be integers with $m \geq 0$ and $0 \leq \ell < 2^m$.
+  Then $J_{2^m + \ell} = 2\ell + 1$.
+\end{theorem}
+\begin{proof}
+  Clearly $J_1 = 1$.
+  We have $J_{2n} = 2J_n - 1$ for $n \geq 1$ since
+  \begin{equation*}
+    (1, 2, 3, 4, \dots, 2n-1, 2n) \to^n (1, 3, \dots, 2n-1).
+  \end{equation*}
+  Also we have $J_{2n+1} = 2J_n + 1$ for $n \geq 1$ since
+  \begin{equation*}
+    (1, 2, 3, 4, \dots, 2n, 2n+1) \to^{n+1} (3, 5, \dots, 2n+1).
+  \end{equation*}
+  \par Now we show that $J_{2^m + \ell} = 2^\ell + 1$ for $m \geq 0$ and $0 \leq \ell < 2^m$ by induction on $m$.
+  For the induction basis, let $m = 0$.
+  In this case we must have $\ell = 0$, and $J_{2^0} = 1 = 2 \cdot 0 + 1$ holds.
+  Now suppose that $J_{2^{m-1} + \ell} = 2^\ell + 1$ holds for any $0 \leq \ell < 2^{m-1}$.
+  If $\ell = 2k$ for some integer $k$, we have
+  \begin{equation*}
+    J_{2^m + \ell}
+    = 2J_{2^{m-1} + k} - 1
+    = 2(2k + 1) - 1
+    = 2(2k) + 1
+    = 2\ell + 1.
+  \end{equation*}
+  If $\ell = 2k + 1$ for some integer $k$, we have
+  \begin{equation*}
+    J_{2^m + \ell}
+    = 2J_{2^{m-1} + k} + 1
+    = 2(2k + 1) + 1
+    = 2\ell + 1.
+  \end{equation*}
+  This completes the proof.
+\end{proof}
+
+\end{document}
