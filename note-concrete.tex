@@ -41,7 +41,9 @@
 \declaretheorem[style=custom,parent=section]{definition}
 \declaretheorem[style=custom,sibling=definition]{example}
 \declaretheorem[style=custom,sibling=definition]{theorem}
-\declaretheorem[style=custom,sibling=definition]{fact}
+\declaretheorem[style=custom,sibling=definition]{proposition}
+\declaretheorem[style=custom,sibling=definition]{lemma}
+\declaretheorem[style=custom,sibling=definition]{corollary}
 \declaretheorem[style=custom,sibling=definition]{algorithm}
 
 % use bold fonts to emphasize
@@ -148,6 +150,137 @@ For instance, we have $J_{10} = 5$ since
     = 2\ell + 1.
   \end{equation*}
   This completes the proof.
+\end{proof}
+
+\section{March 5, 2021}
+\subsection{Perturbation Method}
+\begin{proposition}
+  For $n \geq 1$,
+  \begin{equation*}
+    \sum_{1 \leq k < n} \sum_{1 \leq j < k} \frac{1}{n-k+j} = n-1.
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  We have
+  \begin{align*}
+    \sum_{1 \leq k < n} \sum_{1 \leq j < k} \frac{1}{n-k+j}
+    &= \sum_{1 \leq k < n} \sum_{1 \leq j < k} \frac{1}{n-j} \\
+    &= \sum_{1 \leq j < n} \sum_{j < k \leq n} \frac{1}{n-j} \\
+    &= \sum_{1 \leq j < n} 1 \\
+    &= n-1.
+    \qedhere
+  \end{align*}
+\end{proof}
+
+\subsection{Finite Calculus}
+\begin{theorem}
+  Let $(a_k)_{k \geq 0}$ be a sequence.
+  Then
+  \begin{equation*}
+    \sum_{m \leq k < n} (a_{k+1} - a_k) = a_n - a_m
+  \end{equation*}
+  for $0 \leq m \leq n$.
+\end{theorem}
+\begin{proof}
+  We have
+  \begin{align*}
+    \sum_{m \leq k < n} (a_{k+1} - a_k)
+    &= \sum_{m \leq k < n} a_{k+1} - \sum_{m \leq k < n} a_k \\
+    &= \sum_{m+1 \leq k < n+1} a_k - \sum_{m \leq k < n} a_k \\
+    &= \Biggl(\sum_{m+1 \leq k < n} a_k + a_n\Biggr) - \Biggl(a_m + \sum_{m+1 \leq k < n} a_k\Biggr) \\
+    &= a_n - a_m.
+    \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
+  Let $n \geq 0$.
+  \begin{enumerate}[(a)]
+    \item For any real number $c$, $c^{n+1} - c^n = (c-1)c^n$.
+    \item For any integer $r \geq 1$,
+    \begin{equation*}
+      \prod_{0 \leq j < r} (n+1-j) - \prod_{0 \leq j < r} (n-j) = r \prod_{0 \leq j < r-1} (n-j).
+    \end{equation*}
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+    \item Trivial.
+    \item We have
+    \begin{align*}
+      \prod_{0 \leq j < r} (n+1-j) - \prod_{0 \leq j < r} (n-j)
+      &= (n+1) \prod_{0 \leq j < r-1} (n-j) - (n-r+1) \prod_{0 \leq j < r-1} (n-j) \\
+      &= r \prod_{0 \leq j < r-1} (n-j).
+      \qedhere
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+  Let $n \geq 0$.
+  \begin{enumerate}[(a)]
+    \item For any real number $c \neq 1$,
+    \begin{equation*}
+      \sum_{m \leq k < n} c^k = \frac{c^n - c^m}{c - 1}.
+    \end{equation*}
+    \item For any integer $r \geq 0$,
+    \begin{equation*}
+      \sum_{m \leq k < n} \prod_{0 \leq j < r} (k-j) = \frac{1}{r+1} \Biggl(\prod_{0 \leq j < r+1} (n-j) - \prod_{0 \leq j < r+1} (m-j)\Biggr).
+    \end{equation*}
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+    \item We have
+    \begin{equation*}
+      \sum_{m \leq k < n} c^k
+      = \frac{1}{c-1} \sum_{m \leq k < n} (c^{k+1} - c^k)
+      = \frac{c^n - c^m}{c-1}.
+    \end{equation*}
+    \item We have
+    \begin{align*}
+      \sum_{m \leq k < n} \prod_{0 \leq j < r} (k-j)
+      &= \frac{1}{r+1} \sum_{m \leq k < n} \Biggl(\prod_{0 \leq j < r+1} (k+1-j) - \prod_{0 \leq j < r+1} (k-j)\Biggr) \\
+      &= \frac{1}{r+1} \Biggl(\prod_{0 \leq j < r+1} (n-j) - \prod_{0 \leq j < r+1} (m-j)\Biggr).
+      \qedhere
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Summation by Parts]
+  Let $(a_n)_{n \geq 0}$ and $(b_n)_{n \geq 0}$ be sequences.
+  Then for $0 \leq m \leq n$,
+  \begin{equation*}
+    \sum_{m \leq k < n} a_k(b_{k+1} - b_k) = (a_nb_n - a_mb_m) - \sum_{m \leq k < n} (a_{k+1}- a_k)b_{k+1}.
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We have
+  \begin{align*}
+    \sum_{m \leq k < n} a_k(b_{k+1} - b_k)
+    &= \sum_{m \leq k < n} \Bigl((a_{k+1}b_{k+1} - a_kb_k) - (a_{k+1} - a_k)b_{k+1}\Bigr) \\
+    &= (a_nb_n - a_mb_m) - \sum_{m \leq k < n} (a_{k+1} - a_k)b_{k+1}.
+    \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  For $n \geq 1$,
+  \begin{equation*}
+    \sum_{1 \leq k < n} H_k = n(H_n - 1).
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  We have
+  \begin{align*}
+    \sum_{1 \leq k < n} H_k
+    &= (nH_n - 1) - \sum_{1 \leq k < n} (H_{k+1} - H_k)(k+1) \\
+    &= (nH_n - 1) - (n - 1) \\
+    &= n(H_n - 1).
+    \qedhere
+  \end{align*}
 \end{proof}
 
 \end{document}
