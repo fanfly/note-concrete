@@ -326,4 +326,61 @@ For instance, we have $J_{10} = 5$ since
   \end{align*}
 \end{proof}
 
+\section{March 16, 2021}
+\subsection{Congruence}
+\begin{definition}
+  Let $m$ be a positive integer.
+  For $a, b \in \ZZ$, we write $a \equiv b \pmod m$ if $m \mid a - b$.
+\end{definition}
+
+\begin{proposition}
+  Let $m$ be a positive integer.
+  Then the following properties hold for any $a, b, c \in \ZZ$.
+  \begin{enumerate}[(a)]
+    \item $a \equiv a \pmod m$.
+    \item If $a \equiv b \pmod m$, then $b \equiv a \pmod m$.
+    \item If $a \equiv b \pmod m$ and $b \equiv c \pmod m$, then $a \equiv c \pmod m$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+    \item We have $a \equiv a \pmod m$ since $m \mid 0 = a - a$.
+    \item Suppose that $a \equiv b \pmod m$, i.e., $m \mid a - b$.
+    Then $m \mid -(a - b) = b - a$.
+    Thus, $b \equiv a \pmod m$.
+    \item Suppose that $a \equiv b \pmod m$ and $b \equiv c \pmod m$, i.e., $m \mid a - b$ and $m \mid b - c$.
+    Then
+    \begin{equation*}
+      m \mid (a - b) + (b - c) = a - c.
+    \end{equation*}
+    Thus, $a \equiv c \pmod m$.
+    \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+  Let $m$ be a positive integer.
+  Then the following properties hold for any $a, b, c, d \in \ZZ$.
+  \begin{enumerate}[(a)]
+    \item If $a \equiv b \pmod m$ and $c \equiv d \pmod m$, then $a + c \equiv b + d \pmod m$.
+    \item If $a \equiv b \pmod m$ and $k \in \ZZ$, then $ka \equiv kb \pmod m$.
+    \item If $a \equiv b \pmod m$ and $c \equiv d \pmod m$, then $ac \equiv bd \pmod m$.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+    \item Since $m \mid a - b$ and $m \mid c - d$, we have $m \mid (a - b) + (c - d) = (a + c) - (b + d)$.
+    \item Since $m \mid a - b$, we have $m \mid k(a - b) = ka - kb$.
+    \item We have $ac \equiv bc \equiv bd \pmod m$.
+    \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}
+  Let $m$ be a positive integer.
+  For any integer $a$, let $[a]_m = \{b \in \ZZ: a \equiv b \pmod m\}$.
+\end{definition}
+
 \end{document}
