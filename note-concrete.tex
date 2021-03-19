@@ -283,4 +283,47 @@ For instance, we have $J_{10} = 5$ since
   \end{align*}
 \end{proof}
 
+\section{March 12, 2021}
+\subsection{Floor and Ceiling Sums}
+\begin{proposition}
+  Let $m$ be a positive integer.
+  Then for any real number $x$, we have
+  \begin{equation*}
+    \sum_{0 \leq k < m} \biggl\lfloor \frac{x + k}{m} \biggr\rfloor = \lfloor x \rfloor.
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  Let $r = m - \lfloor x \rfloor \bmod m$.
+  Then we have
+  \begin{align*}
+    \sum_{0 \leq k < m} \biggl\lfloor \frac{x + k}{m} \biggr\rfloor
+    &= \sum_{0 \leq k < m} \biggl\lfloor \frac{m \lfloor x/m \rfloor + x \bmod m + k}{m} \biggr\rfloor \\
+    &= \sum_{0 \leq k < m} \biggl( \biggl\lfloor \frac{x}{m} \biggr\rfloor + \biggl\lfloor \frac{x \bmod m + k}{m} \biggr\rfloor \biggr) \\
+    &= m \biggl\lfloor \frac{x}{m} \biggr\rfloor + m - r \\
+    &= m \biggl\lfloor \frac{x}{m} \biggr\rfloor + \lfloor x \rfloor \bmod m \\
+    &= \lfloor x \rfloor.
+    \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  Let $m$ be a positive integer and let $n$ be an integer.
+  Let $d = \gcd(n, m)$.
+  Then for any real number $x$, we have
+  \begin{equation*}
+    \sum_{0 \leq k < m} \biggl\lfloor \frac{x + kn}{m} \biggr\rfloor = d\biggl\lfloor\frac{x}{d}\biggr\rfloor + \frac{(m-1)(n-1)}{2} + \frac{d-1}{2}.
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We have
+  \begin{align*}
+    \sum_{0 \leq k < m} \biggl\lfloor \frac{x + kn}{m} \biggr\rfloor
+    &= \sum_{0 \leq k < m} \biggl\lfloor \frac{x + kn \bmod m}{m} \biggr\rfloor + \sum_{0 \leq k < m} \frac{kn}{m} - \sum_{0 \leq k < m} \frac{kn \bmod m}{m} \\
+    &= d \sum_{0 \leq k < m/d} \biggl\lfloor \frac{x + kd}{m} \biggr\rfloor + \sum_{0 \leq k < m} \frac{kn}{m} - d \sum_{0 \leq k < m/d} \frac{kd}{m} \\
+    &= d \biggl\lfloor \frac{x}{d} \biggr\rfloor + \frac{n(m-1)}{2} - \frac{m - d}{2} \\
+    &= d \biggl\lfloor \frac{x}{d} \biggr\rfloor + \frac{(m-1)(n-1)}{2} + \frac{d-1}{2}.
+    \qedhere
+  \end{align*}
+\end{proof}
+
 \end{document}
