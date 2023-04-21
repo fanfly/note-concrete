@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{mathtools}
 \usepackage{tikz}
 \usepackage{thmtools}
 \usepackage[shortlabels]{enumitem}
@@ -382,5 +383,149 @@ For instance, we have $J_{10} = 5$ since
   Let $m$ be a positive integer.
   For any integer $a$, let $[a]_m = \{b \in \ZZ: a \equiv b \pmod m\}$.
 \end{definition}
+
+\section{March 19, 2021}
+
+\section{March 26, 2021}
+\subsection{Stern--Brocot Tree}
+The \emph{Stern--Brocot tree} is an infinite binary tree satisfying the following properties.
+\begin{enumerate}[(i)]
+  \item The root of Stern--Brocot tree contains the identity matrix
+  \begin{equation*}
+    I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}.
+  \end{equation*}
+  \item For each node containing $A$, its left child and its right child contain $AL$ and $AR$, respectively, where
+  \begin{equation*}
+    L = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}
+    \qquad \text{and} \qquad
+    R = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}.
+  \end{equation*}
+\end{enumerate}
+For each node containing matrix
+\begin{equation*}
+  A = \begin{pmatrix} n & n' \\ m & m' \end{pmatrix},
+\end{equation*}
+we also define its corresponding fraction as
+\begin{equation*}
+  q = \frac{m + m'}{n + n'}.
+\end{equation*}
+
+\subsection{Permutations and Combinations}
+\begin{itemize}
+  \item The number of permutations to choose $k$ elements from a collection of $n$ distinct items equals to
+  \begin{equation*}
+    P(n, k) = n^{\underline{k}} = n(n-1) \cdots (n-k+1).
+  \end{equation*}
+  \item The number of permutations to choose $k$ elements from $n$ types of items equals to
+  \begin{equation*}
+    U(n, k) = n^k.
+  \end{equation*}
+  \item The number of combinations to choose $k$ elements from a collection of $n$ distinct items equals to
+  \begin{equation*}
+    C(n, k) = \binom{n}{k} = \frac{n(n-1) \cdots (n-k+1)}{k(k-1) \cdots 1}.
+  \end{equation*}
+  \item The number of combinations to choose $k$ elements from $n$ types of items equals to
+  \begin{equation*}
+    H(n, k) = \biggl(\!\!\binom{n}{k}\!\!\biggr) = \frac{(n+k-1)(n+k) \cdots n}{k(k-1) \cdots 1}.
+  \end{equation*}
+\end{itemize}
+
+We have the following recurrence relations.
+\begin{align*}
+  P(n, k) &= P(n-1, k) + kP(n-1, k-1), \\
+  U(n, k) &= nU(n, k-1), \\
+  C(n, k) &= C(n-1, k) + C(n-1, k-1), \\
+  H(n, k) &= H(n-1, k) + H(n, k-1).
+\end{align*}
+
+\section{March 30, 2021}
+\subsection{Binomial Coefficients}
+\begin{proposition}
+  We have the following identities.
+  \begin{enumerate}[(a)]
+    \item
+    \begin{equation*}
+      \binom{n}{k} = \binom{n}{n-k}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      k\binom{r}{k} = r\binom{r-1}{k-1}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \binom{r}{k} = \binom{r-1}{k} + \binom{r-1}{k-1}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \binom{r}{k} = (-1)^k\binom{k-1-r}{k}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \sum_{k \geq 0} \binom{r}{k} x^k y^{r-k} = (x+y)^r.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \sum_{0 \leq k \leq n} \binom{k}{m} = \binom{n+1}{m+1}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \sum_{0 \leq k \leq n} \binom{r+k}{k} = \binom{n+1+r}{n}.
+    \end{equation*}
+    \item
+    \begin{equation*}
+      \sum_{0 \leq k \leq n} \binom{r}{k}\binom{s}{n-k} = \binom{r+s}{n}.
+    \end{equation*}
+  \end{enumerate}
+\end{proposition}
+
+\begin{example}
+  Let us try to compute
+  \begin{equation*}
+    \sum_{0 \leq k \leq n} k\binom{m-k-1}{m-n-1} \Bigm/ \binom{m}{n}
+  \end{equation*}
+  for $n, m \in \ZZ$.
+  First, notice that
+  \begin{equation*}
+    \sum_{0 \leq k \leq n} k\binom{m-k-1}{m-n-1}
+    = \sum_{0 \leq k \leq n} m\binom{m-k-1}{m-n-1} - \sum_{0 \leq k \leq n} (m-k)\binom{m-k-1}{m-n-1}.
+  \end{equation*}
+  We have
+  \begin{equation*}
+    \sum_{0 \leq k \leq n} \binom{m-k-1}{m-n-1} = \binom{m}{m-n} = \binom{m}{n}
+  \end{equation*}
+  and
+  \begin{equation*}
+    \sum_{0 \leq k \leq n} \frac{m-k}{m-n}\binom{m-k-1}{m-n-1} = \sum_{0 \leq k \leq n} \binom{m-k}{m-n} = \binom{m+1}{m-n+1} = \frac{m+1}{m-n+1}\binom{m}{n}.
+  \end{equation*}
+  Thus,
+  \begin{equation*}
+    \sum_{0 \leq k \leq n} k\binom{m-k-1}{m-n-1} \Bigm/ \binom{m}{n}
+    = m - \frac{(m-n)(m+1)}{m-n+1}
+    = \frac{n}{m-n+1}.
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Let us try to compute
+  \begin{equation*}
+    \sum_{k \geq 0} \binom{n+k}{2k} \binom{2k}{k} \frac{(-1)^k}{k+1}
+  \end{equation*}
+  for $n \in \NN$.
+\end{example}
+
+\section{April 9, 2021}
+\subsection{Hypergeometric Functions}
+The \emph{generalized hypergeometric series} is a series
+\begin{equation*}
+  F(a_1, a_2, \dots, a_m; b_1, b_2, \dots, b_n; z) = \sum_{k \geq 0} t_k
+\end{equation*}
+such that $t_0 = 1$ and
+\begin{equation*}
+  \frac{t_{k+1}}{t_k} = \frac{(k + a_1)(k + a_2) \cdots (k + a_m)z}{(k + b_1)(k + b_2) \cdots (k + b_n)(k + 1)}
+\end{equation*}
+for each integer $k \geq 0$, i.e., we have
+\begin{equation*}
+  F(a_1, a_2, \dots, a_m; b_1, b_2, \dots, b_n; z) = \sum_{k \geq 0} \frac{a_1^{\overline{k}}a_2^{\overline{k}} \cdots a_m^{\overline{k}}}{b_1^{\overline{k}}b_2^{\overline{k}} \cdots b_n^{\overline{k}}} \frac{z^k}{k!}.
+\end{equation*}
 
 \end{document}
